@@ -49,29 +49,10 @@ class _AddDataState extends State<AddData> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Theme(
-                    data: ThemeData(
-                      primaryColor: const Color(0xff01B59F),
-                      primaryColorDark: const Color(0xff01B59F),
-                    ),
-                    child: TextField(
-                      controller: _nameController,
-                      // autofocus: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Task',
-                        labelStyle: TextStyle(
-                          fontSize: 15.0,
-                          color: Color(0xff2D3A4A),
-                          fontFamily: 'Montserrat',
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffE0E0E0)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff2D3A4A)),
-                        ),
-                      ),
-                    ),
+                  TextfieldModel(
+                      textController: _nameController,
+                      labelText: _nameController.text,
+                   
                   ),
                   TextfieldModel(
                     textController: _subController,
