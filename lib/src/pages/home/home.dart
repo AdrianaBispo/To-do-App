@@ -1,14 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-//import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lista_app/src/models_ui/texfield_model.dart';
-
+//controller
+import '../../controller/home_controller.dart';
+//services
+import '../../services/firebase_crud.dart';
 //UI
-import 'package:lista_app/src/models_ui/textitle_model.dart';
-import 'package:lista_app/src/models_ui/subtitle_model.dart';
-
+import '../../models_ui/textitle_model.dart';
+import '../../models_ui/subtitle_model.dart';
+import '../../models_ui/texfield_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddData extends StatefulWidget {
@@ -21,6 +20,7 @@ class AddData extends StatefulWidget {
 class _AddDataState extends State<AddData> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _subController = TextEditingController();
+  HomeController controller = HomeController(firebasecrud: FirebaseCrud());
 
   CollectionReference todoss = FirebaseFirestore.instance.collection('Tasks');
 
@@ -44,20 +44,19 @@ class _AddDataState extends State<AddData> {
             padding: const EdgeInsets.all(20.0),
             child: Padding(
               padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextfieldModel(
-                      textController: _nameController,
-                      labelText: _nameController.text,
-                   
+                    textController: _nameController,
+                    labelText: _nameController.text,
                   ),
                   TextfieldModel(
                     textController: _subController,
                     labelText: 'Description',
-                   ),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -109,22 +108,24 @@ class _AddDataState extends State<AddData> {
 
   //Deletando tarefa pelo id
   Future<void> _deleteTodo(String todoId) async {
-    await todoss.doc(todoId).delete();
+    var response = await controller.delete(todoId: todoId);
 
-    //Show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: const Color(0xffE0E0E0),
-        content: Text(
-          'You deleted a task',
-          style: GoogleFonts.montserrat(
-            fontSize: 15.0,
-            color: const Color(0xff2D3A4A),
-          ), // style
-          textAlign: TextAlign.left,
+    if (response.code != 200) {
+      //Show a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: const Color(0xffE0E0E0),
+          content: Text(
+            'You deleted a task',
+            style: GoogleFonts.montserrat(
+              fontSize: 15.0,
+              color: const Color(0xff2D3A4A),
+            ), // style
+            textAlign: TextAlign.left,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override
