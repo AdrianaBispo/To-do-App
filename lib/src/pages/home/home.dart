@@ -200,7 +200,7 @@ class _AddDataState extends State<AddData> {
         SnackBar(
           backgroundColor: const Color(0xffE0E0E0),
           content: Text(
-            'You deleted a task',
+            response.message.toString(),
             style: GoogleFonts.montserrat(
               fontSize: 15.0,
               color: const Color(0xff2D3A4A),
