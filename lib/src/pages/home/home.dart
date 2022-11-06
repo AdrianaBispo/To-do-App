@@ -26,10 +26,6 @@ class _AddDataState extends State<AddData> {
 
   CollectionReference todoss = FirebaseFirestore.instance.collection('Tasks');
 
-  // This function is triggered when the floatting button or one of the edit buttons is pressed
-  // Adding a product if no documentSnapshot is passed
-  // If documentSnapshot != null then update an existing product
-
   Future _create() {
     return showModalBottomSheet(
       isScrollControlled: true,
