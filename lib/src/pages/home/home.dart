@@ -110,14 +110,10 @@ class _AddDataState extends State<AddData> {
     );
   }
 
-  Future<void> _createOrUpdate([DocumentSnapshot? documentSnapshot]) async {
-    String action = 'create';
-    if (documentSnapshot != null) {
-      action = 'update';
-      _nameController.text = documentSnapshot['tarefa'];
-      _subController.text = documentSnapshot['descricao'];
-    }
-
+  Future<void> _update(
+      {required String tarefa,
+      required String descricao,
+      required String todoId}) async {
     await showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -149,9 +145,9 @@ class _AddDataState extends State<AddData> {
                       elevation: 0,
                       minimumSize: const Size(120, 45),
                     ),
-                    child: Text(
-                      action == 'create' ? 'Create' : 'Update',
-                      style: const TextStyle(
+                    child: const Text(
+                      'Update',
+                      style: TextStyle(
                         fontSize: 18,
                         color: Color(0xffFAFAFA),
                         fontFamily: 'Montserrat',
@@ -161,25 +157,34 @@ class _AddDataState extends State<AddData> {
                       final String? name = _nameController.text;
                       final String? sub = _subController.text;
                       if (name != null && sub != null) {
-                        if (action == 'create') {
-                          // Persist a new product to Firestore
-                          await todoss.add({"tarefa": name, "descricao": sub});
+                        var response = await controller.update(
+                            tarefa: tarefa,
+                            descricao: descricao,
+                            todoId: todoId);
+
+                        if (response.code != 200) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: const Color(0xffE0E0E0),
+                              content: Text(
+                                response.message.toString(),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 15.0,
+                                  color: const Color(0xff2D3A4A),
+                                ), // style
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          );
                         }
-
-                        if (action == 'update') {
-                          // Update the product
-                          await todoss
-                              .doc(documentSnapshot!.id)
-                              .update({"tarefa": name, "descricao": sub});
-                        }
-
-                        // Clear the text fields
-                        _nameController.text = '';
-                        _subController.text = '';
-
-                        // Hide the bottom sheet
-                        Navigator.of(context).pop();
                       }
+
+                      // Clear the text fields
+                      _nameController.text = '';
+                      _subController.text = '';
+
+                      // Hide the bottom sheet
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
