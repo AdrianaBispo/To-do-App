@@ -10,6 +10,9 @@ class HomeController {
   Stream<QuerySnapshot> read() {
     return firebasecrud.readTodo();
   }
+  Future<Response> add({required String tarefa, required String descricao}){
+    return firebasecrud.addTodo(tarefa: tarefa, descricao: descricao);
+  }
 
   Future<Response> delete({required String todoId}) async {
     Response response = await firebasecrud.deleteTodo(todoId: todoId);
