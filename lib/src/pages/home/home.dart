@@ -244,9 +244,10 @@ class _AddDataState extends State<AddData> {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       return GestureDetector(
-                        onTap: () => _create(
+                        onTap: () => _update(
                           tarefa: documentSnapshot['tarefa'],
                           descricao: documentSnapshot['descricao'],
+                          todoId: documentSnapshot.id,
                         ),
                         child: Container(
                           height: 70,
@@ -307,7 +308,7 @@ class _AddDataState extends State<AddData> {
 
       // Add new product
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _createOrUpdate(),
+        onPressed: () => _create(),
         backgroundColor: const Color(0xff01B59F),
         child: const Icon(
           Icons.add,
