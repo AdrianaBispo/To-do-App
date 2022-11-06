@@ -14,6 +14,15 @@ class HomeController {
     return firebasecrud.addTodo(tarefa: tarefa, descricao: descricao);
   }
 
+  Future<Response> update(
+      {required String tarefa,
+      required String descricao,
+      required String todoId}) async {
+    Response response = await firebasecrud.updatetask(
+        tarefa: tarefa, descricao: descricao, todoId: todoId);
+        return response;
+  }
+
   Future<Response> delete({required String todoId}) async {
     Response response = await firebasecrud.deleteTodo(todoId: todoId);
 
