@@ -24,7 +24,7 @@ class FirebaseCrud {
 
     await documentReferencer.set(data).whenComplete(() {
       response.code = 200;
-      response.message = "Tarefa adcionada com sucesso";
+      response.message = "Sucessfully added a task";
     }).catchError((e) {
       response.code = 500;
       response.message = e;
@@ -46,7 +46,7 @@ class FirebaseCrud {
 
     await documentReferencer.update(data).whenComplete(() {
       response.code = 200;
-      response.message = "Tarefa atualizada com sucesso";
+      response.message = "Sucessfully updated a task";
     }).catchError((e) {
       response.code = 500;
       response.message = e;
