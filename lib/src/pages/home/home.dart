@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+//models
+import '../../models/tasks.dart';
 //controller
 import '../../controller/home_controller.dart';
 //services
@@ -27,6 +29,70 @@ class _AddDataState extends State<AddData> {
   // This function is triggered when the floatting button or one of the edit buttons is pressed
   // Adding a product if no documentSnapshot is passed
   // If documentSnapshot != null then update an existing product
+
+  Future _create({required String tarefa, required String descricao}) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext ctx) {
+        return Container(
+          color: const Color(0xffE0E0E0),
+          padding: const EdgeInsets.all(20.0),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextfieldModel(
+                  textController: _nameController,
+                  labelText: _nameController.text,
+                ),
+                TextfieldModel(
+                  textController: _subController,
+                  labelText: 'Description',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xff01B59F),
+                    elevation: 0,
+                    minimumSize: const Size(120, 45),
+                  ),
+                  child: const Text(
+                    'Create',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xffFAFAFA),
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+                  onPressed: () async {
+                    final String? name = _nameController.text;
+                    final String? sub = _subController.text;
+                    if (name != null && sub != null) {
+                      await controller.add(tarefa: name, descricao: sub);
+                    }
+
+                    // Clear the text fields
+                    _nameController.text = '';
+                    _subController.text = '';
+
+                    // Hide the bottom sheet
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> _createOrUpdate([DocumentSnapshot? documentSnapshot]) async {
     String action = 'create';
     if (documentSnapshot != null) {
@@ -160,7 +226,10 @@ class _AddDataState extends State<AddData> {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       return GestureDetector(
-                        onTap: () => _createOrUpdate(),
+                        onTap: () => _create(
+                          tarefa: documentSnapshot['tarefa'],
+                          descricao: documentSnapshot['descricao'],
+                        ),
                         child: Container(
                           height: 70,
                           margin: const EdgeInsets.only(
