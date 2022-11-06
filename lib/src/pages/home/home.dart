@@ -30,7 +30,7 @@ class _AddDataState extends State<AddData> {
   // Adding a product if no documentSnapshot is passed
   // If documentSnapshot != null then update an existing product
 
-  Future _create({required String tarefa, required String descricao}) {
+  Future _create() {
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -74,7 +74,24 @@ class _AddDataState extends State<AddData> {
                     final String? name = _nameController.text;
                     final String? sub = _subController.text;
                     if (name != null && sub != null) {
-                      await controller.add(tarefa: name, descricao: sub);
+                      var response =
+                          await controller.add(tarefa: name, descricao: sub);
+                      if (response.code != 200) {
+                        //Show a snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: const Color(0xffE0E0E0),
+                            content: Text(
+                              response.message.toString(),
+                              style: GoogleFonts.montserrat(
+                                fontSize: 15.0,
+                                color: const Color(0xff2D3A4A),
+                              ), // style
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        );
+                      }
                     }
 
                     // Clear the text fields
