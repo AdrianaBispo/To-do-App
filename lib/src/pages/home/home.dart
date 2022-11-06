@@ -146,7 +146,7 @@ class _AddDataState extends State<AddData> {
       ),
 
       body: StreamBuilder(
-          stream: todoss.snapshots(),
+          stream: controller.read(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData) {
               return SingleChildScrollView(
