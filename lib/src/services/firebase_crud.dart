@@ -33,6 +33,28 @@ class FirebaseCrud {
     return response;
   }
 
+  Future<Response> updatetask(
+      {required String tarefa,
+      required String descricao,
+      required String todoId}) async {
+    Response response = Response();
+    DocumentReference documentReferencer = _collection.doc(todoId);
+
+    Task todo = Task(tarefa: tarefa, descricao: descricao);
+
+    Map<String, dynamic> data = todo.toJson();
+
+    await documentReferencer.update(data).whenComplete(() {
+      response.code = 200;
+      response.message = "Tarefa atualizada com sucesso";
+    }).catchError((e) {
+      response.code = 500;
+      response.message = e;
+    });
+
+    return response;
+  }
+
   Future<Response> deleteTodo({required String todoId}) async {
     Response response = Response();
 
