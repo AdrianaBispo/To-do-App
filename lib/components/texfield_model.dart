@@ -9,7 +9,7 @@ class TextfieldModel extends StatefulWidget {
     Key? key,
     required this.textController,
     required this.labelText,
-  });
+  }) : super(key: key);
 
   @override
   _TextfieldModelState createState() => _TextfieldModelState();
