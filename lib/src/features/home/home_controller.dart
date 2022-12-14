@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../services/firebase_crud.dart';
+import '../repository/firebase_crud.dart';
 //models
 import '../../shared/models/response.dart';
 
