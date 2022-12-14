@@ -49,7 +49,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 Para clonar e rodar essa aplicação, você precisa do [Git](https://git-scm.com) and [Flutter](https://docs.flutter.dev/get-started/install) instalados no seu computador. Digite os seguites comandos:
 
     - Baixe ou clone este repositório usando o link abaixo:
-    $ git clone https://github.com/AdrianaBispo/country-quiz.git
+    $ git clone https://github.com/AdrianaBispo/To-do-App.git
     
     - Vá para a raiz do projeto e execute o seguinte comando no console para obter as dependências necessárias:
     $ flutter pub get
