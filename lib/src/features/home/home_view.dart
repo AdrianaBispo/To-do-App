@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //controller
-import '../../controller/home_controller.dart';
+import 'home_controller.dart';
 //services
-import '../../services/firebase_crud.dart';
-//UI
-import '../../components/textitle_model.dart';
-import '../../components/subtitle_model.dart';
-import '../../components/texfield_model.dart';
+import '../services/firebase_crud.dart';
+//components
+import 'components/textitle_model.dart';
+import 'components/subtitle_model.dart';
+import 'components/texfield_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddData extends StatefulWidget {

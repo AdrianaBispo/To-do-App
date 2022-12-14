@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lista_app/appwidget.dart';
+import 'package:lista_app/src/appwidget.dart';
 
 
 void main() async{

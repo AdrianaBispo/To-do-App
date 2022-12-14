@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 //models
-import '../models/response.dart';
-import '../models/tasks.dart';
+import '../../shared/models/response.dart';
+import '../../shared/models/tasks.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _collection = _firestore.collection('Tasks');
