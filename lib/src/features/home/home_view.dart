@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //controller
 import 'home_controller.dart';
 //services
-import '../services/firebase_crud.dart';
+import '../repository/firebase_crud.dart';
 //components
 import 'components/textitle_model.dart';
 import 'components/subtitle_model.dart';
